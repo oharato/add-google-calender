@@ -15,6 +15,7 @@
 
 1. `npm run build`
 2. `dist/legacy.bookmarklet.txt` または `dist/csp.bookmarklet.txt` をブックマーク URL に貼り付け
+3. CSP版を使う場合は GitHub Pages を有効化して `public/csp-runner.js` を公開
 
 詳細: docs/install.md
 

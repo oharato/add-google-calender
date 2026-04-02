@@ -27,4 +27,11 @@ CSP版ローダは次を読み込みます。
 
 - https://oharato.github.io/add-google-calender/csp-runner.js?v=1
 
-公開 URL を変更した場合は src/bookmarklet-csp-loader.js を更新してください。
+## 4. GitHub Pages を有効化
+
+1. GitHub リポジトリの Settings を開く
+2. Pages を選択
+3. Build and deployment の Source を GitHub Actions に設定
+4. main へ push すると `.github/workflows/deploy-pages.yml` が `public/` を配信
+
+公開 URL を変更した場合は `src/bookmarklet-csp-loader.js` を更新してください。
