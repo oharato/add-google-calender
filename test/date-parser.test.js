@@ -128,3 +128,13 @@ test("英語日付 Apr 2, 2026", () => {
   assert.equal(r.startDate.getMonth() + 1, 4);
   assert.equal(r.startDate.getDate(), 2);
 });
+
+test("年なしスラッシュ日付 4/3 (金) 18:00", () => {
+  const r = run("4/3 (金) 18:00");
+  assert.equal(r.ok, true);
+  assert.equal(r.startDate.getFullYear(), 2026);
+  assert.equal(r.startDate.getMonth() + 1, 4);
+  assert.equal(r.startDate.getDate(), 3);
+  assert.equal(r.startDate.getHours(), 18);
+  assert.equal(r.startDate.getMinutes(), 0);
+});

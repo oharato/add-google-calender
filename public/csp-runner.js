@@ -18,6 +18,25 @@
     var s = normalize(text);
     var now = new Date();
 
+    function dateOnly(d){return new Date(d.getFullYear(), d.getMonth(), d.getDate());}
+    function ensureFutureYear(y,m,d){
+      var candidate = new Date(y, m-1, d);
+      if (dateOnly(candidate) < dateOnly(now)) return y + 1;
+      return y;
+    }
+
+    var mdt = s.match(/\b(\d{1,2})\/(\d{1,2})(?:\s*\([月火水木金土日]\))?(?:.*?)(\d{1,2}):(\d{2})/);
+    if (mdt) {
+      var y0 = ensureFutureYear(now.getFullYear(), Number(mdt[1]), Number(mdt[2]));
+      var h0 = Number(mdt[3]);
+      var min0 = Number(mdt[4]);
+      var start0 = new Date(y0, Number(mdt[1])-1, Number(mdt[2]), h0 % 24, min0, 0);
+      if (h0 >= 24) start0.setDate(start0.getDate() + Math.floor(h0 / 24));
+      var end0 = new Date(start0.getTime());
+      end0.setMinutes(end0.getMinutes() + 60);
+      return {start:start0,end:end0,allDay:false};
+    }
+
     var m = s.match(/平成\s*(\d{1,2})年\s*(\d{1,2})月\s*(\d{1,2})日(?:.*?)(\d{1,2}):(\d{2})?/)
       || s.match(/(\d{4})\/(\d{1,2})\/(\d{1,2})(?:.*?)(\d{1,2}):(\d{2})?/)
       || s.match(/(\d{4})年\s*(\d{1,2})月\s*(\d{1,2})日(?:.*?)(\d{1,2}):(\d{2})?/);
@@ -43,6 +62,7 @@
     var d = s.match(/平成\s*(\d{1,2})年\s*(\d{1,2})月\s*(\d{1,2})日/)
       || s.match(/(\d{4})\/(\d{1,2})\/(\d{1,2})/)
       || s.match(/(\d{4})年\s*(\d{1,2})月\s*(\d{1,2})日/)
+      || s.match(/\b(\d{1,2})\/(\d{1,2})(?!\/)/)
       || s.match(/(\d{1,2})月\s*(\d{1,2})日/);
     if (d) {
       var y = now.getFullYear();
@@ -56,6 +76,10 @@
         y = Number(d[1]);
         mo = Number(d[2]);
         da = Number(d[3]);
+      } else if (/^\d{1,2}\/\d{1,2}$/.test(d[0])) {
+        mo = Number(d[1]);
+        da = Number(d[2]);
+        y = ensureFutureYear(y, mo, da);
       } else {
         mo = Number(d[1]);
         da = Number(d[2]);

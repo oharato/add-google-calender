@@ -171,6 +171,11 @@ function parseDateParts(text, now) {
     return { year, month: Number(m[2]), day: Number(m[3]) };
   }
 
+  m = s.match(/\b(\d{1,2})\/(\d{1,2})(?!\/)/);
+  if (m) {
+    return { year: now.getFullYear(), month: Number(m[1]), day: Number(m[2]), inferredYear: true };
+  }
+
   m = s.match(/\b(\d{4})-(\d{1,2})-(\d{1,2})/);
   if (m) return { year: Number(m[1]), month: Number(m[2]), day: Number(m[3]) };
 
