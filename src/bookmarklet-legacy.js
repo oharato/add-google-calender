@@ -48,8 +48,11 @@ javascript:(function(){
       params.set("ctz", "Asia/Tokyo");
     }
     var pageTitle = String(document.title || "").replace(/\s+/g," ").trim();
+    var pageUrl = String(location && location.href ? location.href : "");
+    var details = normalized;
+    if (pageUrl) details += "\n\nURL: " + pageUrl;
     params.set("text", (pageTitle || normalized).slice(0,80));
-    params.set("details", normalized);
+    params.set("details", details);
 
     var url = "https://calendar.google.com/calendar/u/0/r/eventedit?" + params.toString();
     window.open(url, "_blank", "noopener,noreferrer");

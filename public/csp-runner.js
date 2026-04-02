@@ -118,8 +118,11 @@
     params.set("ctz", "Asia/Tokyo");
   }
   var pageTitle = normalize(document.title || "");
+  var pageUrl = String(location && location.href ? location.href : "");
+  var details = normalize(selected);
+  if (pageUrl) details += "\n\nURL: " + pageUrl;
   params.set("text", (pageTitle || normalize(selected)).slice(0,80));
-  params.set("details", normalize(selected));
+  params.set("details", details);
 
   var url = "https://calendar.google.com/calendar/u/0/r/eventedit?" + params.toString();
   window.open(url, "_blank", "noopener,noreferrer");
