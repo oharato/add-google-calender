@@ -1,5 +1,5 @@
 javascript:(function(){
-  var RUNNER_URL = "https://oharato.github.io/add-google-calender/csp-runner.js?v=1";
+  var RUNNER_URL = "https://oharato.github.io/add-google-calender/csp-runner.js?v=2";
   try {
     var text = String(window.getSelection ? window.getSelection() : "").trim();
     if (!text) {
