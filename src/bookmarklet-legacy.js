@@ -47,7 +47,8 @@ javascript:(function(){
       params.set("dates", fmtDt(start)+"/"+fmtDt(end));
       params.set("ctz", "Asia/Tokyo");
     }
-    params.set("text", normalized.slice(0,80));
+    var pageTitle = String(document.title || "").replace(/\s+/g," ").trim();
+    params.set("text", (pageTitle || normalized).slice(0,80));
     params.set("details", normalized);
 
     var url = "https://calendar.google.com/calendar/u/0/r/eventedit?" + params.toString();

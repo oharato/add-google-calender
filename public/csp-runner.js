@@ -40,6 +40,32 @@
       return {start:new Date(year,month-1,day),end:end,allDay:true};
     }
 
+    var d = s.match(/平成\s*(\d{1,2})年\s*(\d{1,2})月\s*(\d{1,2})日/)
+      || s.match(/(\d{4})\/(\d{1,2})\/(\d{1,2})/)
+      || s.match(/(\d{4})年\s*(\d{1,2})月\s*(\d{1,2})日/)
+      || s.match(/(\d{1,2})月\s*(\d{1,2})日/);
+    if (d) {
+      var y = now.getFullYear();
+      var mo = 0;
+      var da = 0;
+      if (/平成/.test(s)) {
+        y = 1988 + Number(d[1]);
+        mo = Number(d[2]);
+        da = Number(d[3]);
+      } else if (/^\d{4}([\/年])/.test(d[0])) {
+        y = Number(d[1]);
+        mo = Number(d[2]);
+        da = Number(d[3]);
+      } else {
+        mo = Number(d[1]);
+        da = Number(d[2]);
+      }
+      var startOnly = new Date(y, mo - 1, da);
+      var endOnly = new Date(startOnly.getTime());
+      endOnly.setDate(endOnly.getDate() + 1);
+      return {start:startOnly,end:endOnly,allDay:true};
+    }
+
     var rel = s.match(/明日/) ? 1 : 0;
     var date = new Date(now.getFullYear(), now.getMonth(), now.getDate()+rel);
     var t = s.match(/(正午|午後\s*[一二三四五六七八九十\d]+時|午前\s*[一二三四五六七八九十\d]+時|\d{1,2}:\d{2}|\d{1,2}時)/);
@@ -91,7 +117,8 @@
     params.set("dates", fmtDt(parsed.start)+"/"+fmtDt(parsed.end));
     params.set("ctz", "Asia/Tokyo");
   }
-  params.set("text", normalize(selected).slice(0,80));
+  var pageTitle = normalize(document.title || "");
+  params.set("text", (pageTitle || normalize(selected)).slice(0,80));
   params.set("details", normalize(selected));
 
   var url = "https://calendar.google.com/calendar/u/0/r/eventedit?" + params.toString();

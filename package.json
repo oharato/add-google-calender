@@ -6,5 +6,8 @@
   "scripts": {
     "test": "node --test",
     "build": "node src/build-bookmarklets.js"
+  },
+  "devDependencies": {
+    "terser": "^5.46.1"
   }
 }
