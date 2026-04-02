@@ -25,7 +25,7 @@ npm run build
 
 CSP版ローダは次を読み込みます。
 
-- https://oharato.github.io/add-google-calender/csp-runner.js?v=2
+- https://oharato.github.io/add-google-calender/csp-runner.js?v=3
 
 ## 4. GitHub Pages を有効化
 

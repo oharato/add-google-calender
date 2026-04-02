@@ -1,5 +1,5 @@
 javascript:(function(){
-  var RUNNER_URL = "https://oharato.github.io/add-google-calender/csp-runner.js?v=2";
+  var RUNNER_URL = "https://oharato.github.io/add-google-calender/csp-runner.js?v=3";
   try {
     var text = String(window.getSelection ? window.getSelection() : "").trim();
     if (!text) {
@@ -8,7 +8,7 @@ javascript:(function(){
     }
 
     var script = document.createElement("script");
-    script.src = RUNNER_URL;
+    script.src = RUNNER_URL + "&t=" + Date.now();
     script.async = true;
     script.dataset.gcalQuickText = encodeURIComponent(text);
     script.onerror = function(){
