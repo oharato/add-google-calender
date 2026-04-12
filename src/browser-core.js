@@ -1,6 +1,4 @@
-(function(){
-  "use strict";
-  // browser-core.js — shared browser-compatible parsing and calendar URL logic.
+// browser-core.js — shared browser-compatible parsing and calendar URL logic.
 // This file is inlined by build-bookmarklets.js into both the legacy bookmarklet and csp-runner.js.
 // Do NOT use require/module.exports or ES modules here.
 
@@ -138,21 +136,3 @@ function openCalendar(parsed, selectedText) {
   var url = "https://calendar.google.com/calendar/u/0/r/eventedit?" + params.toString();
   window.open(url, "_blank", "noopener,noreferrer");
 }
-
-
-  var script = document.currentScript;
-  var encoded = script && script.dataset ? script.dataset.gcalQuickText : "";
-  var selected = decodeURIComponent(encoded || "");
-  if (!selected) {
-    alert("CSP版: 選択テキストが見つかりません。");
-    return;
-  }
-
-  var parsed = parseDate(selected, new Date());
-  if (!parsed) {
-    alert("日付を認識できませんでした。\n例: 2012/06/30 10:00");
-    return;
-  }
-
-  openCalendar(parsed, selected);
-})();
