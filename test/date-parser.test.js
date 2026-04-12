@@ -138,3 +138,13 @@ test("年なしスラッシュ日付 4/3 (金) 18:00", () => {
   assert.equal(r.startDate.getHours(), 18);
   assert.equal(r.startDate.getMinutes(), 0);
 });
+
+test("ドット区切り 2026.05.10 Sun. 11:00~16:00", () => {
+  const r = run("技術書同人誌博覧会\n2026.05.10 Sun. 11:00~16:00\n@大田区産業プラザPiO 大展示ホール");
+  assert.equal(r.ok, true);
+  assert.equal(r.startDate.getFullYear(), 2026);
+  assert.equal(r.startDate.getMonth() + 1, 5);
+  assert.equal(r.startDate.getDate(), 10);
+  assert.equal(r.startDate.getHours(), 11);
+  assert.equal(r.startDate.getMinutes(), 0);
+});

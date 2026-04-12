@@ -12,7 +12,11 @@ javascript:(function(){
     script.async = true;
     script.dataset.gcalQuickText = encodeURIComponent(text);
     script.onerror = function(){
-      alert("CSP版ランナーの読み込みに失敗しました。");
+      alert(
+        "CSP版ランナーの読み込みに失敗しました。\n\n" +
+        "このページのCSPが https://oharato.github.io を許可していない可能性があります。\n" +
+        "ページが 'unsafe-inline' を許可している場合は、通常版（レガシー版）ブックマークレットをお使いください。"
+      );
     };
     document.head.appendChild(script);
   } catch (e) {
